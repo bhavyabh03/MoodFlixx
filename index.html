@@ -1,0 +1,184 @@
+"<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoodFlixx 🎧 — Mood Based Playlist Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="cursor-ring"></div>
+<!-- ✨ Mouse Trail -->
+<div id="mouse-trail"></div>
+
+<!-- Background layers -->
+<div class="mt-bg"></div>
+<div class="mt-grain"></div>
+<div class="mt-particles" id="particles" aria-hidden="true"></div>
+
+<!-- 🎵 Music Background -->
+<div id="music-background"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-row">
+      <a href="#home" class="logo" data-page="home">
+        <span class="logo-badge">🎧</span>
+        <span class="logo-text">Mood<span class="accent-pink">Flixx
+        </span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active" data-page="home">Generator</a>
+        <a href="#favorites" class="nav-link" data-page="favorites">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21s-7.5-4.6-9.7-9.5C.5 7.4 3 4 6.5 4c2 0 3.6 1 4.6 2.4C12.6 5 14.2 4 16.2 4 19.7 4 22.2 7.4 21.7 11.5 19.5 16.4 12 21 12 21z"/></svg>
+          Favorites
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================== HOME PAGE =========================== -->
+  <main id="page-home" class="page">
+    <section class="container hero">
+      <div class="hero-text">
+        <div class="pill">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2zm7 9l.9 2.7 2.7.9-2.7.9-.9 2.7-.9-2.7-2.7-.9 2.7-.9.9-2.7zM5 13l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7L5 13z"/></svg>
+          BINARY SEARCH · SORTED BY BPM
+        </div>
+        <h1 class="hero-title">
+          MoodFlixx your <span class="accent-pink glow-text">mood.</span><br/>
+          We tune the <span class="accent-purple">playlist.</span>
+        </h1>
+        <p class="hero-sub">
+          Stack the moods you're feeling, slide the count, and let the algorithm
+          scrub through a sorted dataset to surface the perfect mix — in milliseconds.
+        </p>
+      </div>
+
+      <div class="now-mixing glass">
+        <div class="overline">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 17V5l12-2v12"/><circle cx="6" cy="17" r="3"/><circle cx="18" cy="15" r="3"/></svg>
+          NOW MIXING
+        </div>
+        <p class="mixing-label" id="mixingLabel">No moods picked</p>
+        <p class="mixing-sub" id="mixingSub">8 songs requested</p>
+      </div>
+    </section>
+
+    <!-- Mood grid -->
+    <section class="container section-block">
+      <div class="row-between">
+        <div>
+          <h2 class="section-title">Pick your moods</h2>
+          <p class="section-sub">Tap to add. Tap again to remove. Mix freely.</p>
+        </div>
+        <button id="clearMoodsBtn" class="btn-ghost hide" type="button">Clear</button>
+      </div>
+      <div class="mood-grid" id="moodGrid"></div>
+    </section>
+
+    <!-- Slider + Generate -->
+    <section class="container generator-card glass-strong">
+      <div class="slider-wrap">
+        <div class="row-between">
+          <label for="songCount" class="overline">SONGS IN PLAYLIST</label>
+          <div class="count-display">
+            <span id="countDisplay">8</span>
+            <span class="count-max">/ 20</span>
+          </div>
+        </div>
+        <input type="range" min="1" max="20" value="8" id="songCount" class="mt-slider"/>
+        <div class="slider-ticks">
+          <span>1</span><span>5</span><span>10</span><span>15</span><span>20</span>
+        </div>
+      </div>
+      <button id="generateBtn" class="btn-primary" type="button">
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M9.5 3l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2zm9 9l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1 1-2.2zM5 14l.8 1.8L7.6 16.6l-1.8.8L5 19.2l-.8-1.8L2.4 16.6l1.8-.8L5 14z"/></svg>
+        </span>
+        <span class="btn-label">Generate Playlist 🎵</span>
+      </button>
+    </section>
+<!-- Binary Search Visualization -->
+<section class="container">
+  <h2>🔍 Binary Search Visualization</h2>
+
+  <div id="visualization-container"
+       style="display:flex;
+              gap:10px;
+              flex-wrap:wrap;
+              margin-bottom:20px;">
+  </div>
+
+</section>
+    <!-- Results -->
+    <section class="container">
+      <div id="resultsHeader" class="row-between hide">
+        <h2 class="section-title">Your playlist <span class="accent-pink">●</span></h2>
+        <span id="resultsMeta" class="results-meta"></span>
+      </div>
+      <div id="emptyState" class="glass empty-state">
+        <div class="empty-emoji">🎧</div>
+        <p>No playlist yet. Pick some moods and hit <span class="accent-pink">Generate</span>.</p>
+      </div>
+      <div id="loadingSkeleton" class="loading-grid hide">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+      <div id="playlist" class="playlist-list"></div>
+      <!-- 🎬 YouTube Player -->
+<div id="video-player"
+style="
+margin-top:20px;
+width:100%;
+max-width:700px;
+aspect-ratio:16/9;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 0 30px rgba(197, 209, 22, 0.3);
+">
+</div>
+      <details id="bsTrace" class="glass bs-trace hide">
+        <summary>BINARY SEARCH TRACE</summary>
+        <ul id="bsTraceList"></ul>
+      </details>
+    </section>
+  </main>
+
+  <!-- ========================= FAVORITES PAGE ========================= -->
+  <main id="page-favorites" class="page hide">
+    <section class="container hero">
+      <div class="hero-text">
+        <div class="pill">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21s-7.5-4.6-9.7-9.5C.5 7.4 3 4 6.5 4c2 0 3.6 1 4.6 2.4C12.6 5 14.2 4 16.2 4 19.7 4 22.2 7.4 21.7 11.5 19.5 16.4 12 21 12 21z"/></svg>
+          SAVED LOCALLY
+        </div>
+        <h1 class="hero-title">Your <span class="accent-pink glow-text">favorites</span></h1>
+        <p class="hero-sub">Stored on this device only — clear cookies and they vanish like a dropped beat.</p>
+      </div>
+      <button id="clearFavoritesBtn" class="btn-ghost hide">Clear all</button>
+    </section>
+
+    <section class="container">
+      <div id="favoritesEmpty" class="glass empty-state hide">
+        <div class="empty-emoji">💗</div>
+        <p class="empty-title">No favorites yet</p>
+        <p class="empty-sub">Generate a playlist and tap the heart on a song you love.</p>
+        <button class="btn-primary go-back" data-page="home">Build a playlist</button>
+      </div>
+      <div id="favoritesList" class="playlist-list"></div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hide"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+"
