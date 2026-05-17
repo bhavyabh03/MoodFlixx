@@ -2,9 +2,8 @@
 
 🌍 Live Demo
 
-🔗 https://bhavyabh03.github.io/MoodFlixx
+🔗 https://mood-flixx.vercel.app/
 
----
 
 📌 Project Overview
 
@@ -13,7 +12,7 @@ It uses the Binary Search algorithm to efficiently search through a sorted datas
 
 This project demonstrates the practical use of Data Structures and Algorithms (DAA) concepts in a real-world application.
 
----
+
 
 🎯 Objectives
 
@@ -22,7 +21,6 @@ This project demonstrates the practical use of Data Structures and Algorithms (D
 - To visualize how binary search works internally
 - To build a modern UI using HTML, CSS, and JavaScript
 
----
 
 🎵 Features
 
@@ -35,7 +33,6 @@ Remove Favorites
 Responsive modern UI
 Fast search using sorted dataset
 
----
 
 🧠 How Binary Search is Used
 
@@ -51,7 +48,6 @@ Fast search using sorted dataset
 
 3. This reduces search time significantly.
 
----
 
 ⏱ Time Complexity
 
@@ -63,7 +59,6 @@ Binary Search Time Complexity:
 
 This makes the playlist generation fast and efficient.
 
----
 
 🛠 Technologies Used
 
@@ -74,7 +69,6 @@ This makes the playlist generation fast and efficient.
 - GitHub Pages (for deployment)
 - YouTube Video Integration
 
----
 
 📊 Dataset
 
@@ -99,7 +93,6 @@ Each mood contains multiple songs with:
 - BPM
 - YouTube Video ID
 
----
 
 🚀 Future Improvements
 
@@ -109,14 +102,12 @@ Each mood contains multiple songs with:
 - Improve recommendation accuracy
 - Add dark/light theme toggle
 
----
 
 👨‍💻 Author
 
 Bhavya Bhargava
 B.Tech Computer Science (Data Science)
 
----
 
 📚 Learning Outcome
 
